@@ -15,12 +15,14 @@ public class User {
 
     private String name;
     private int salary;
-    public User(){
+
+    public User() {
 
     }
-    public User(UserDto userDto){
-        name=userDto.name;
-        salary=userDto.salary;
+
+    public User(UserDto userDto) {
+        name = userDto.name;
+        salary = userDto.salary;
     }
 
     public String getName() {
