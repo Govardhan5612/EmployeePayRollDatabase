@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 @RestController
 public class UserController {
     @Autowired
@@ -19,6 +21,10 @@ public class UserController {
     public User addUser(@RequestBody UserDto userDto) {
 
         return userService.addUser(userDto);
+    }
+    @GetMapping("/get")
+    public List<User> getUser(){
+        return userService.getUsers();
     }
 
 }

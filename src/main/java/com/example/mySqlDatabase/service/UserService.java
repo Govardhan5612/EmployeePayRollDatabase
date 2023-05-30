@@ -7,6 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
 
+import java.util.*;
+
+
 @Service
 public class UserService {
     @Autowired
@@ -14,5 +17,8 @@ public class UserService {
     public User addUser(@RequestBody UserDto userDto) {
         User user = new User(userDto);
         return userRepo.save(user);
+    }
+    public List<User> getUsers(){
+        return userRepo.findAll();
     }
 }
