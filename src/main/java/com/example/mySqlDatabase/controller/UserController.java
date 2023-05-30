@@ -5,12 +5,10 @@ import com.example.mySqlDatabase.model.User;
 import com.example.mySqlDatabase.repository.UserRepo;
 import com.example.mySqlDatabase.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 public class UserController {
@@ -19,12 +17,15 @@ public class UserController {
 
     @PostMapping("/add")
     public User addUser(@RequestBody UserDto userDto) {
-
         return userService.addUser(userDto);
     }
     @GetMapping("/get")
-    public List<User> getUser(){
+    public List<User> getUsers(){
         return userService.getUsers();
+    }
+    @GetMapping("/get/{id}")
+    public Optional<User> getUser(@PathVariable int id){
+        return userService.getUser(id);
     }
 
 }
