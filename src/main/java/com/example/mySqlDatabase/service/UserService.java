@@ -14,23 +14,34 @@ import java.util.*;
 public class UserService {
     @Autowired
     UserRepo userRepo;
+
     public User addUser(@RequestBody UserDto userDto) {
         User user = new User(userDto);
         return userRepo.save(user);
     }
-    public List<User> getUsers(){
+
+    public List<User> getUsers() {
         return userRepo.findAll();
     }
-    public Optional<User> getUser(int id){
+
+    public Optional<User> getUser(int id) {
         return userRepo.findById(id);
     }
-    public User update(int id,UserDto user){
+
+    public User update(int id, UserDto user) {
         Optional<User> opUser = userRepo.findById(id);
-        if(opUser.isPresent()){
+        if (opUser.isPresent()) {
             opUser.get().setName(user.name);
             opUser.get().setSalary(user.salary);
             return userRepo.save(opUser.get());
         }
         return null;
+    }
+
+    public void delete(int id) {
+        Optional<User> user = userRepo.findById(id);
+        if (user.isPresent()) {
+            userRepo.deleteById(id);
+        }
     }
 }

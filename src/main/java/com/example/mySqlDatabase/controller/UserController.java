@@ -19,17 +19,24 @@ public class UserController {
     public User addUser(@RequestBody UserDto userDto) {
         return userService.addUser(userDto);
     }
+
     @GetMapping("/get")
-    public List<User> getUsers(){
+    public List<User> getUsers() {
         return userService.getUsers();
     }
+
     @GetMapping("/get/{id}")
-    public Optional<User> getUser(@PathVariable int id){
+    public Optional<User> getUser(@PathVariable int id) {
         return userService.getUser(id);
     }
+
     @PutMapping("/update/{id}")
-    public User update(@PathVariable int id,@RequestBody UserDto user){
-        return userService.update(id,user);
+    public User update(@PathVariable int id, @RequestBody UserDto user) {
+        return userService.update(id, user);
     }
 
+    @DeleteMapping("/delete/{id}")
+    public void delete(@PathVariable int id) {
+        userService.delete(id);
+    }
 }
