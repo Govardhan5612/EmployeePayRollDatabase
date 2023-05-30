@@ -24,4 +24,13 @@ public class UserService {
     public Optional<User> getUser(int id){
         return userRepo.findById(id);
     }
+    public User update(int id,UserDto user){
+        Optional<User> opUser = userRepo.findById(id);
+        if(opUser.isPresent()){
+            opUser.get().setName(user.name);
+            opUser.get().setSalary(user.salary);
+            return userRepo.save(opUser.get());
+        }
+        return null;
+    }
 }
