@@ -13,14 +13,12 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class UserController {
     @Autowired
-    UserRepo userRepo;
-    @Autowired
     UserService userService;
 
     @PostMapping("/add")
     public User addUser(@RequestBody UserDto userDto) {
-        User user = new User(userDto);
-        return userRepo.save(user);
+
+        return userService.addUser(userDto);
     }
 
 }
