@@ -1,10 +1,13 @@
 package com.example.mySqlDatabase.controller;
 
+import com.example.mySqlDatabase.dto.ResponseDto;
 import com.example.mySqlDatabase.dto.UserDto;
 import com.example.mySqlDatabase.model.User;
-import com.example.mySqlDatabase.repository.UserRepo;
 import com.example.mySqlDatabase.service.UserService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -16,27 +19,39 @@ public class UserController {
     UserService userService;
 
     @PostMapping("/add")
-    public User addUser(@RequestBody UserDto userDto) {
-        return userService.addUser(userDto);
+    public ResponseEntity<ResponseDto> addUser(@Valid @RequestBody UserDto userDto) {
+
+        userService.addUser(userDto);
+        ResponseDto dto = new ResponseDto("The data added", userDto);
+        return new ResponseEntity<ResponseDto>(dto, HttpStatus.ACCEPTED);
     }
 
     @GetMapping("/get")
-    public List<User> getUsers() {
-        return userService.getUsers();
+    public ResponseEntity<ResponseDto> getUsers() {
+        List<User> user = userService.getUsers();
+        ResponseDto dto = new ResponseDto("All Users Data", user);
+        return new ResponseEntity<ResponseDto>(dto, HttpStatus.OK);
     }
 
     @GetMapping("/get/{id}")
-    public Optional<User> getUser(@PathVariable int id) {
-        return userService.getUser(id);
+    public ResponseEntity<ResponseDto> getUser(@PathVariable int id) {
+        Optional<User> user = userService.getUser(id);
+        ResponseDto dto = new ResponseDto("Users Data", user);
+        return new ResponseEntity<ResponseDto>(dto, HttpStatus.OK);
     }
 
     @PutMapping("/update/{id}")
-    public User update(@PathVariable int id, @RequestBody UserDto user) {
-        return userService.update(id, user);
+    public ResponseEntity<ResponseDto> update(@PathVariable int id, @Valid @RequestBody UserDto user) {
+        userService.update(id, user);
+        ResponseDto dto = new ResponseDto("Updated user data", user);
+        return new ResponseEntity<ResponseDto>(dto, HttpStatus.ACCEPTED);
     }
 
+
     @DeleteMapping("/delete/{id}")
-    public void delete(@PathVariable int id) {
+    public ResponseEntity<ResponseDto> delete(@PathVariable int id) {
         userService.delete(id);
+        ResponseDto dto = new ResponseDto("Delete", id + (" Deleted "));
+        return new ResponseEntity<ResponseDto>(dto, HttpStatus.ACCEPTED);
     }
 }

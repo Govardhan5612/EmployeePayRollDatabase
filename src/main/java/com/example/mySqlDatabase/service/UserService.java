@@ -31,8 +31,10 @@ public class UserService {
     public User update(int id, UserDto user) {
         Optional<User> opUser = userRepo.findById(id);
         if (opUser.isPresent()) {
-            opUser.get().setName(user.name);
-            opUser.get().setSalary(user.salary);
+            opUser.get().setFirstName(user.getFirstName());
+            opUser.get().setLastName(user.getLastName());
+            opUser.get().setGender(user.getGender());
+            opUser.get().setSalary(user.getSalary());
             return userRepo.save(opUser.get());
         }
         return null;
