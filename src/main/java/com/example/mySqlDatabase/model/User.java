@@ -5,39 +5,29 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Table(name = "EmployeeDetails")
+@Data
+@NoArgsConstructor
 public class User {
     @Id
     @GeneratedValue()
     private int id;
 
-    private String name;
-    private int salary;
-
-    public User() {
-
-    }
+    private String firstName;
+    private String lastName;
+    private String gender;
+    private long salary;
 
     public User(UserDto userDto) {
-        name = userDto.name;
-        salary = userDto.salary;
+        firstName=userDto.getFirstName();
+        lastName= userDto.getLastName();
+        gender=userDto.getGender();
+        salary= userDto.getSalary();
     }
 
-    public String getName() {
-        return name;
-    }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public int getSalary() {
-        return salary;
-    }
-
-    public void setSalary(int salary) {
-        this.salary = salary;
-    }
 }
