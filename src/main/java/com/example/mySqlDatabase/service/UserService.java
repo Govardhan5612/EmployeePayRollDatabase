@@ -1,6 +1,7 @@
 package com.example.mySqlDatabase.service;
 
 import com.example.mySqlDatabase.dto.UserDto;
+import com.example.mySqlDatabase.exception.UserException;
 import com.example.mySqlDatabase.model.User;
 import com.example.mySqlDatabase.repository.UserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,8 +25,9 @@ public class UserService {
         return userRepo.findAll();
     }
 
-    public Optional<User> getUser(int id) {
-        return userRepo.findById(id);
+    public User getUser(int id) {
+
+        return userRepo.findById(id).orElseThrow(()->new UserException(id+" is not found"));
     }
 
     public User update(int id, UserDto user) {
@@ -37,13 +39,18 @@ public class UserService {
             opUser.get().setSalary(user.getSalary());
             return userRepo.save(opUser.get());
         }
-        return null;
+        else {
+            return userRepo.findById(id).orElseThrow(()->new UserException(id+" is not found"));
+        }
     }
 
     public void delete(int id) {
         Optional<User> user = userRepo.findById(id);
         if (user.isPresent()) {
             userRepo.deleteById(id);
+        }
+        else {
+            userRepo.findById(id).orElseThrow(()->new UserException(id+" is not found"));
         }
     }
 }
