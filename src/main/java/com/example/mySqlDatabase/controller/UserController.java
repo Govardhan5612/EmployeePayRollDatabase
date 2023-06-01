@@ -35,7 +35,7 @@ public class UserController {
 
     @GetMapping("/get/{id}")
     public ResponseEntity<ResponseDto> getUser(@PathVariable int id) {
-        Optional<User> user = userService.getUser(id);
+        User user = userService.getUser(id);
         ResponseDto dto = new ResponseDto("Users Data", user);
         return new ResponseEntity<ResponseDto>(dto, HttpStatus.OK);
     }
