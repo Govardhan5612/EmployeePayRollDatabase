@@ -23,6 +23,7 @@ public class User {
     private long salary;
     private LocalDate startDate;
     private String notes;
+    private String profilePic;
     @ElementCollection
     @CollectionTable(name = "Department")
     @JoinColumn(name = "id")
@@ -36,6 +37,7 @@ public class User {
         salary = userDto.getSalary();
         startDate=userDto.getStartDate();
         notes=userDto.getNotes();
+        profilePic=userDto.getProfilePic();
         departments=userDto.getDepartments();
     }
 
