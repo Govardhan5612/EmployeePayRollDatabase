@@ -1,12 +1,12 @@
 package com.example.mySqlDatabase.model;
 
 import com.example.mySqlDatabase.dto.UserDto;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.time.LocalDate;
+import java.util.List;
 
 @Entity
 @Table(name = "EmployeeDetails")
@@ -21,12 +21,22 @@ public class User {
     private String lastName;
     private String gender;
     private long salary;
+    private LocalDate startDate;
+    private String notes;
+    @ElementCollection
+    @CollectionTable(name = "Department")
+    @JoinColumn(name = "id")
+    private List<String> departments;
+
 
     public User(UserDto userDto) {
-        firstName=userDto.getFirstName();
-        lastName= userDto.getLastName();
-        gender=userDto.getGender();
-        salary= userDto.getSalary();
+        firstName = userDto.getFirstName();
+        lastName = userDto.getLastName();
+        gender = userDto.getGender();
+        salary = userDto.getSalary();
+        startDate=userDto.getStartDate();
+        notes=userDto.getNotes();
+        departments=userDto.getDepartments();
     }
 
 
