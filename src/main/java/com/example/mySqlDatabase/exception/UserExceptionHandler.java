@@ -24,7 +24,6 @@ public class UserExceptionHandler {
     }
     @ExceptionHandler(UserException.class)
     public ResponseEntity<ResponseDto> idException(UserException exception){
-        //List<String> errorList = Collections.singletonList(exception.getMessage());
         ResponseDto dto = new ResponseDto("Searching the User Id",exception.getMessage());
         return new ResponseEntity<ResponseDto>(dto,HttpStatus.BAD_REQUEST);
     }
