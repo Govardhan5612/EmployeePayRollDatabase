@@ -17,6 +17,7 @@ public class UserExceptionHandler {
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<ResponseDto> methodArgumentHandler(MethodArgumentNotValidException exception) {
         List<ObjectError> errorList = exception.getBindingResult().getAllErrors();
+
         List<String> errorMessage = errorList.stream().map(objError -> objError.getDefaultMessage()).collect(Collectors.toList());
         ResponseDto dto = new ResponseDto("Check the User Details are Processing", errorMessage);
         return new ResponseEntity<ResponseDto>(dto, HttpStatus.BAD_REQUEST);
@@ -27,4 +28,6 @@ public class UserExceptionHandler {
         ResponseDto dto = new ResponseDto("Searching the User Id",exception.getMessage());
         return new ResponseEntity<ResponseDto>(dto,HttpStatus.BAD_REQUEST);
     }
+
+
 }

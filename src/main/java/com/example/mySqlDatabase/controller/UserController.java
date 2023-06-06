@@ -54,4 +54,14 @@ public class UserController {
         ResponseDto dto = new ResponseDto("Delete", id + (" Deleted "));
         return new ResponseEntity<ResponseDto>(dto, HttpStatus.ACCEPTED);
     }
+    @GetMapping("/department/{department}")
+    public ResponseEntity<ResponseDto> findByDepartment(@PathVariable String department) {
+        List<User> user = userService.department(department);
+        if (user.isEmpty()){
+            ResponseDto dto = new ResponseDto("User data "+department, department+" department is not present in the database");
+            return new ResponseEntity<ResponseDto>(dto, HttpStatus.BAD_REQUEST);
+        }
+        ResponseDto dto = new ResponseDto("Users Data", user);
+        return new ResponseEntity<ResponseDto>(dto, HttpStatus.OK);
+    }
 }
