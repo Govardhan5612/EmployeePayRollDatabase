@@ -37,6 +37,10 @@ public class UserService {
             opUser.get().setLastName(user.getLastName());
             opUser.get().setGender(user.getGender());
             opUser.get().setSalary(user.getSalary());
+            opUser.get().setStartDate(user.getStartDate());
+            opUser.get().setNotes(user.getNotes());
+            opUser.get().setProfilePic(user.getProfilePic());
+            opUser.get().setDepartments(user.getDepartments());
             return userRepo.save(opUser.get());
         }
         else {
@@ -52,5 +56,8 @@ public class UserService {
         else {
             userRepo.findById(id).orElseThrow(()->new UserException(id+" is not found"));
         }
+    }
+    public List<User> department(String department) {
+        return userRepo.searchByDepartment(department);
     }
 }

@@ -25,7 +25,7 @@ public class UserDto {
     @Min(value = 15000, message = "Minimum salary is 15000")
     @Max(value = 100000, message = "Maximum salary is 100000")
     private long salary;
-    @JsonFormat(pattern = "DD MM YEAR")
+    @JsonFormat(pattern = "dd MM yyyy")
     @NotNull(message = "This field is not null")
     @PastOrPresent(message = "Enter past date")
     private LocalDate startDate;
@@ -33,7 +33,7 @@ public class UserDto {
     private String notes;
     @NotBlank(message = "note cannot be empty")
     private String profilePic;
-    @NotNull(message = "departments should not null")
+    @NotEmpty(message = "departments should not Empty")
     private List<String> departments;
 
 }
